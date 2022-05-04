@@ -12,7 +12,7 @@ def getHash(arr,x,y):
     hash = 0
     for i in range(x,x+3):      # 0~1 범위의 9개 정수 : 2진법->10진법
         for j in range(y,y+3):
-            hash = hash * 2 + int(arr[x][y]=='+')
+            hash = hash * 2 + int(arr[i][j]=='+')
     return hash
 
 htab = [[] for _ in range(2**9)]
@@ -26,7 +26,7 @@ def isSame(x, y):
     if x > n-m or y > n-m: return 0
     for i in range(m):
         if A[x+i][y:y+m] != B[i]: return 0
-    return  1
+    return 1
 
 for _ in range(int(input())):
     m = int(input())
