@@ -1,10 +1,10 @@
 from collections import deque, defaultdict
 
-dq = deque()
-cnt = defaultdict(int)
+dq = deque()                # mainStr
+cnt = defaultdict(int)      # cnt[subStr] = 개수
 
 def init(mStr: str):
-    global dq, cnt, rev
+    global rev
     dq.clear()
     cnt.clear()
     rev = False
@@ -15,7 +15,7 @@ def init(mStr: str):
 
 def update(one):           # rev = 1/0 통합 업데이트
     if rev: r = range(0, min(4, len(dq)))
-    else: r = range(len(dq)-1, max(len(dq)-5, -1), -1)
+    r = range(len(dq)-1, max(len(dq)-5, -1), -1)
     sub = ''
     for i in r:
         if rev: sub += dq[i]
@@ -26,16 +26,15 @@ def left(one):              # rev = 1 일때 업데이트
     sub = ''
     for i in range(range(0, min(4, len(dq)))):
         sub += dq[i]
-        sub[sub]+=one
+        cnt[sub]+=one
 
 def right(one):             # rev = 0 일때 업데이트
     sub = ''
     for i in range(len(dq)-1, max(len(dq)-5, -1), -1):
         sub = dq[i] + sub
-        sub[sub]+=one
+        cnt[sub]+=one
 
 def pushBack(mWord: str):
-    global dq
     for c in mWord:
         if rev: dq.appendleft(c)
         else: dq.append(c)
