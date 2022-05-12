@@ -1,0 +1,27 @@
+마을수 : 50개
+카페수 : 10,000개
+카페이름 : 3~5 자리
+
+
+getBestScore(str) : 150,000회
+ str 포함되는 카페 중 가장 높은 가치
+
+ 1) naive : O(10,000 * 150,000 * 문자열 비교)
+ 2) maxScore[str] 미리 기록?
+     addScore에서 name의 모든 부분문자열 maxScore 업데이트
+     return maxScore[str]
+
+
+
+getTop3Score(townID, dist) : 1,000회
+ townID의 dist 이내 모든 카페들중 가장 높은 가치 3개
+ O(10,000 * 1,000)
+ BFS       O(마을개수 + 도로개수)/1회
+ nlargest  O(카페개수 * log 3)/1회
+ 
+
+필요한 정보
+ 1. 카페 점수(dict) : cafeScore[name] = score
+ 2. 최대 점수(dict) : maxScore[str] = 이름에 str포함하는 카페중 최대점수
+ 3. 그래프(list) : adj[townID] = [ 인접한 townID ]
+ 4. 마을별 카페 이름(list) : cafe[townID] = [ 카페 이름,.. ]
