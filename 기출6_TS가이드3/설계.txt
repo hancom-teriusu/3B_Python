@@ -1,0 +1,50 @@
+uid 추천 기준
+  1) 본인+친구 주문횟수 많은순
+  2) 가까운순
+  3) cid 작은순
+
+제약사항
+  카페수 : 6,000
+  총 주문 횟수: 3,000
+  친구 : 200
+  고객수 : 25
+  recommend() : 10,000
+
+
+고찰
+  1. 우선순위 기준 고객마다 다름
+  2. 고객 우선순위 바뀌는 경우
+       - order() : 고객이 주문
+                   고객 친구가 주문
+       - beBuddy() : 고객 친구 추가
+
+
+필요 데이터
+  고객별
+   - (x,y)
+   - dict key=cid, value = dist, myOrder, totOrder
+       dist=카페별 거리
+       myOrder=카페별 주문 횟수
+       totOrder=카페별 본인+친구 총 주문 횟수
+   - 친구 리스트
+
+
+recommend() 방법
+  1. nlargest
+      key=(totOrder, -dist, -cid)
+   
+      O(10,000 * 6,000 * log 10)
+
+  2. heap
+      key=(-totOrder, dist, cid)
+ 
+      O(10,000 * (10 log 6,000) * 2)
+
+
+     heap update 기준
+       1) cafe추가 : (0,dist,cid) 모든 고객heap에 push
+       2) order() : uid, 친구 heap에 push
+       3) beBuddy() : 새로운 친구가 주문한 모든 카페 횟수 추가하여 push
+
+
+     ※ key = int < tuple < list
